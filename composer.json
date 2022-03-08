@@ -1,0 +1,47 @@
+{
+    "name": "fresns/cmd-word-manager",
+    "type": "library",
+    "description": "Command word manager helps plugins to communicate with each other easily.",
+    "keywords": ["fresns", "cmd-word", "rpc", "laravel-rpc", "laravel-command"],
+    "license": "GPL-3.0",
+    "homepage": "https://fresns.org",
+    "support": {
+        "issues": "https://github.com/fresns/cmd-word-manager/issues",
+        "source": "https://github.com/fresns/cmd-word-manager",
+        "docs": "https://fresns.org/extensions/command-word/"
+    },
+    "authors": [
+        {
+            "name": "Jarvis Tang",
+            "email": "jarvis.okay@gmail.com",
+            "homepage": "https://github.com/jarvis-tang",
+            "role": "Creator"
+        },
+        {
+            "name": "mouyong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://github.com/mouyong",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fresns\\CmdWordManager\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fresns\\CmdWordManager\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fresns\\CmdWordManager\\LaravelServiceProvider"
+            ]
+        }
+    }
+}
