@@ -8,8 +8,8 @@
 
 namespace Fresns\CmdWordManager\Commands;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 
 class MakeCmdWordProviderCommand extends GeneratorCommand
 {
@@ -82,7 +82,7 @@ class MakeCmdWordProviderCommand extends GeneratorCommand
         $path = str_replace('/', '\\', $path);
         $path = Str::studly($path);
 
-        if (!$path) {
+        if (! $path) {
             return app_path('Providers');
         }
 

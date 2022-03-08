@@ -23,8 +23,7 @@ class CmdWord
     }
 
     /**
-     *
-     * @param array $cmdWord ['name' => XxxClass::CMD_XXX_YYY, 'provider' => [ZzzClass::class, 'handleCmdXxYyy]];
+     * @param  array  $cmdWord  ['name' => XxxClass::CMD_XXX_YYY, 'provider' => [ZzzClass::class, 'handleCmdXxYyy]];
      * @return static
      */
     public static function make(array $cmdWord): static
@@ -33,7 +32,7 @@ class CmdWord
     }
 
     /**
-     * XxxService::CMD_XXX_CMD
+     * XxxService::CMD_XXX_CMD.
      *
      * @return string
      */
@@ -43,7 +42,7 @@ class CmdWord
     }
 
     /**
-     * [XxxService::class, 'xxxCmd']
+     * [XxxService::class, 'xxxCmd'].
      *
      * @return array
      */
@@ -64,14 +63,13 @@ class CmdWord
 
         $this->forwardCallType = self::FORWARD_CALL_TYPE_NEW;
 
-        [$className, $methodName] =  $handleProvider;
+        [$className, $methodName] = $handleProvider;
 
         if (class_exists(\Illuminate\Contracts\Foundation\Application::class)) {
             $handleProvider = [app($className), $methodName];
         } else {
             $handleProvider = [new $className, $methodName];
         }
-
 
         return $handleProvider;
     }
@@ -114,7 +112,7 @@ class CmdWord
 
         $response = call_user_func_array($this->getHandleProvider(), $args);
 
-        if (!is_array($response)) {
+        if (! is_array($response)) {
             return $response;
         }
 
