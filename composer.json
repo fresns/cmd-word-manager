@@ -25,7 +25,8 @@
         }
     ],
     "require": {
-        "php": "^8.0.2"
+        "php": "^8.0.2",
+        "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {
@@ -41,7 +42,10 @@
         "laravel": {
             "providers": [
                 "Fresns\\CmdWordManager\\LaravelServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "FresnsCmdWord": "Fresns\\CmdWordManager\\Facades\\FresnsCmdWord"
+            }
         }
     }
 }

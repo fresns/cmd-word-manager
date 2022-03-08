@@ -6,7 +6,9 @@
  * Released under the GPL-3.0 License.
  */
 
-namespace Fresns\CmdWordManager;
+namespace Fresns\CmdWordManager\Traits;
+
+use Fresns\CmdWordManager\Contracts\CmdWordProviderContract;
 
 trait CmdWordManagerTrait
 {

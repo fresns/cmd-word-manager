@@ -23,7 +23,8 @@ class CmdWord
     }
 
     /**
-     * @param  array  $cmdWord  ['name' => XxxClass::CMD_XXX_YYY, 'provider' => [ZzzClass::class, 'handleCmdXxYyy]];
+     *
+     * @param array $cmdWord ['name' => XxxClass::CMD_XXX_YYY, 'provider' => [ZzzClass::class, 'handleCmdXxYyy]];
      * @return static
      */
     public static function make(array $cmdWord): static
@@ -32,7 +33,7 @@ class CmdWord
     }
 
     /**
-     * XxxService::CMD_XXX_CMD.
+     * XxxService::CMD_XXX_CMD
      *
      * @return string
      */
@@ -42,13 +43,37 @@ class CmdWord
     }
 
     /**
-     * [XxxService::class, 'xxxCmd'].
+     * [XxxService::class, 'xxxCmd']
      *
      * @return array
      */
     public function getProvider(): array
     {
         return $this->provider;
+    }
+
+    public function getHandleProvider()
+    {
+        $handleProvider = [$this->getHandleClassName(), $this->getHandleMethod()];
+
+        if (is_callable($handleProvider)) {
+            $this->forwardCallType = self::FORWARD_CALL_TYPE_STATIC;
+
+            return $handleProvider;
+        }
+
+        $this->forwardCallType = self::FORWARD_CALL_TYPE_NEW;
+
+        [$className, $methodName] =  $handleProvider;
+
+        if (class_exists(\Illuminate\Contracts\Foundation\Application::class)) {
+            $handleProvider = [app($className), $methodName];
+        } else {
+            $handleProvider = [new $className, $methodName];
+        }
+
+
+        return $handleProvider;
     }
 
     /**
@@ -68,40 +93,31 @@ class CmdWord
     {
         [$className, $methodName] = $this->getProvider();
 
-        return $methodName;
+        return Str::camel($methodName);
     }
 
     public function getHandleClass(): object
     {
-        [$className, $methodName] = $this->getProvider();
+        [$class, $methodName] = $this->getHandleProvider();
 
-        if (! class_exists($this->getHandleClassName())) {
-            throw new \RuntimeException("cmd word handle: $className::$methodName notfound.");
-        }
-
-        return new $className();
+        return $class;
     }
 
     public function isCallable(): bool
     {
-        if (is_callable($this->getProvider())) {
-            $this->forwardCallType = CmdWord::FORWARD_CALL_TYPE_STATIC;
-
-            return true;
-        }
-
-        return is_callable([$this->getHandleClass(), $this->getHandleMethod()]);
+        return is_callable($this->getHandleProvider());
     }
 
     public function handle($args = null)
     {
         $args = (array) ($args ?? []);
 
-        $handle = $this->getProvider();
-        if ($this->forwardCallType === CmdWord::FORWARD_CALL_TYPE_NEW) {
-            $handle = [$this->getHandleClass(), $this->getHandleMethod()];
+        $response = call_user_func_array($this->getHandleProvider(), $args);
+
+        if (!is_array($response)) {
+            return $response;
         }
 
-        return call_user_func_array($handle, $args);
+        return CmdWordResponse::make($response);
     }
 }

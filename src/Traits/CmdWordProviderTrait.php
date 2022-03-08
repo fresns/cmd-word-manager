@@ -6,7 +6,10 @@
  * Released under the GPL-3.0 License.
  */
 
-namespace Fresns\CmdWordManager;
+namespace Fresns\CmdWordManager\Traits;
+
+use Fresns\CmdWordManager\CmdWord;
+use Fresns\CmdWordManager\FresnsCmdWord;
 
 trait CmdWordProviderTrait
 {
@@ -79,6 +82,11 @@ trait CmdWordProviderTrait
     public function get(string $cmdWordName): CmdWord
     {
         return $this->cmdWords[$cmdWordName];
+    }
+
+    public function registerCmdWordProvider()
+    {
+        FresnsCmdWord::make()->addCmdWordProvider($this);
     }
 
     public function forwardCmdWordCall(string $cmdWord, array $args)

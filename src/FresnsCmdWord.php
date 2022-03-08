@@ -10,5 +10,5 @@ namespace Fresns\CmdWordManager;
 
 class FresnsCmdWord
 {
-    use CmdWordManagerTrait;
+    use Traits\CmdWordManagerTrait;
 }

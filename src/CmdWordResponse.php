@@ -8,6 +8,8 @@
 
 namespace Fresns\CmdWordManager;
 
+use Fresns\CmdWordManager\Supports\Collection;
+
 abstract class CmdWordResponse
 {
     protected Collection $body;

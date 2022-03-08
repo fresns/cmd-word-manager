@@ -17,6 +17,10 @@ class LaravelServiceProvider extends \Illuminate\Support\ServiceProvider
         });
 
         $this->app->alias(FresnsCmdWord::class, 'fresns.cmd-word-manager');
+
+        $this->commands([
+            Commands\MakeCmdWordProviderCommand::class,
+        ]);
     }
 
     public function boot()
