@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the GPL-3.0 License.
+ */
+
 namespace Fresns\CmdWordManager;
 
 class CmdWord
@@ -17,8 +23,7 @@ class CmdWord
     }
 
     /**
-     *
-     * @param array $cmdWord ['name' => XxxClass::CMD_XXX_YYY, 'provider' => [ZzzClass::class, 'handleCmdXxYyy]];
+     * @param  array  $cmdWord  ['name' => XxxClass::CMD_XXX_YYY, 'provider' => [ZzzClass::class, 'handleCmdXxYyy]];
      * @return static
      */
     public static function make(array $cmdWord): static
@@ -27,7 +32,7 @@ class CmdWord
     }
 
     /**
-     * XxxService::CMD_XXX_CMD
+     * XxxService::CMD_XXX_CMD.
      *
      * @return string
      */
@@ -37,7 +42,7 @@ class CmdWord
     }
 
     /**
-     * [XxxService::class, 'xxxCmd']
+     * [XxxService::class, 'xxxCmd'].
      *
      * @return array
      */
@@ -70,7 +75,7 @@ class CmdWord
     {
         [$className, $methodName] = $this->getProvider();
 
-        if (!class_exists($this->getHandleClassName())) {
+        if (! class_exists($this->getHandleClassName())) {
             throw new \RuntimeException("cmd word handle: $className::$methodName notfound.");
         }
 
@@ -81,6 +86,7 @@ class CmdWord
     {
         if (is_callable($this->getProvider())) {
             $this->forwardCallType = CmdWord::FORWARD_CALL_TYPE_STATIC;
+
             return true;
         }
 

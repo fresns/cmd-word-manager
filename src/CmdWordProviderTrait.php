@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the GPL-3.0 License.
+ */
+
 namespace Fresns\CmdWordManager;
 
 trait CmdWordProviderTrait
@@ -70,18 +76,18 @@ trait CmdWordProviderTrait
         return $this;
     }
 
-    public function get(string$cmdWordName): CmdWord
+    public function get(string $cmdWordName): CmdWord
     {
         return $this->cmdWords[$cmdWordName];
     }
 
     public function forwardCmdWordCall(string $cmdWord, array $args)
     {
-        if (!in_array($cmdWord, $this->getAvailableCmdWords())) {
+        if (! in_array($cmdWord, $this->getAvailableCmdWords())) {
             throw new \LogicException("cmd word: $cmdWord notfound.");
         }
 
-        if (!$this->get($cmdWord)->isCallable()) {
+        if (! $this->get($cmdWord)->isCallable()) {
             throw new \LogicException("cmd word: $cmdWord call failure.");
         }
 

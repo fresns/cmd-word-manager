@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the GPL-3.0 License.
+ */
 
 namespace Fresns\CmdWordManager;
 
@@ -26,7 +31,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * set data.
      *
-     * @param mixed $items
+     * @param  mixed  $items
      */
     public function __construct(array $items = [])
     {
@@ -48,8 +53,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Return specific items.
      *
-     * @param array $keys
-     *
+     * @param  array  $keys
      * @return Collection
      */
     public function only(array $keys): self
@@ -59,7 +63,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
         foreach ($keys as $key) {
             $value = $this->get($key);
 
-            if (!is_null($value)) {
+            if (! is_null($value)) {
                 $return[$key] = $value;
             }
         }
@@ -70,8 +74,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Get all items except for those with the specified keys.
      *
-     * @param mixed $keys
-     *
+     * @param  mixed  $keys
      * @return Collection
      */
     public function except($keys): self
@@ -84,8 +87,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Merge data.
      *
-     * @param Collection|array $items
-     *
+     * @param  Collection|array  $items
      * @return Collection
      */
     public function merge($items): self
@@ -100,13 +102,12 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * To determine Whether the specified element exists.
      *
-     * @param string $key
-     *
+     * @param  string  $key
      * @return bool
      */
     public function has($key): bool
     {
-        return !is_null($this->dotGet($this->items, $key));
+        return ! is_null($this->dotGet($this->items, $key));
     }
 
     /**
@@ -136,8 +137,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * add the item value.
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param  string  $key
+     * @param  mixed  $value
      */
     public function add($key, $value)
     {
@@ -147,8 +148,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Set the item value.
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param  string  $key
+     * @param  mixed  $value
      */
     public function set($key, $value)
     {
@@ -158,7 +159,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Remove item form Collection.
      *
-     * @param string $key
+     * @param  string  $key
      */
     public function forget($key)
     {
@@ -168,9 +169,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Retrieve item from Collection.
      *
-     * @param string $key
-     * @param mixed  $default
-     *
+     * @param  string  $key
+     * @param  mixed  $default
      * @return mixed
      */
     public function get($key, $default = null)
@@ -179,10 +179,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     }
 
     /**
-     * @param array      $array
-     * @param string     $key
-     * @param mixed|null $default
-     *
+     * @param  array  $array
+     * @param  string  $key
+     * @param  mixed|null  $default
      * @return mixed
      */
     public function dotGet($array, $key, $default = null)
@@ -198,14 +197,14 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
                 $array = $array[$segment];
             }
         }
+
         return $default;
     }
 
     /**
-     * @param array  $array
-     * @param string $key
-     * @param mixed  $value
-     *
+     * @param  array  $array
+     * @param  string  $key
+     * @param  mixed  $value
      * @return array
      */
     public function dotSet(array &$array, string $key, $value): array
@@ -213,7 +212,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
         $keys = explode('.', $key);
         while (count($keys) > 1) {
             $key = array_shift($keys);
-            if (!isset($array[$key]) || !is_array($array[$key])) {
+            if (! isset($array[$key]) || ! is_array($array[$key])) {
                 $array[$key] = [];
             }
             $array = &$array[$key];
@@ -224,8 +223,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     }
 
     /**
-     * @param array        $array
-     * @param array|string $keys
+     * @param  array  $array
+     * @param  array|string  $keys
      */
     public function dotRemove(array &$array, $keys)
     {
@@ -269,8 +268,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Build to json.
      *
-     * @param int $option
-     *
+     * @param  int  $option
      * @return string
      */
     public function toJson($option = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES): string
@@ -351,10 +349,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      *
      * @see  http://php.net/manual/en/serializable.unserialize.php
      *
-     * @param string $serialized <p>
-     *                           The string representation of the object.
-     *                           </p>
-     *
+     * @param  string  $serialized  <p>
+     *                              The string representation of the object.
+     *                              </p>
      * @return mixed|void
      */
     public function unserialize($serialized)
@@ -365,8 +362,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Get a data by key.
      *
-     * @param string $key
-     *
+     * @param  string  $key
      * @return mixed
      */
     public function __get($key)
@@ -377,8 +373,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Assigns a value to the specified data.
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param  string  $key
+     * @param  mixed  $value
      */
     public function __set($key, $value)
     {
@@ -388,8 +384,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Whether or not an data exists by key.
      *
-     * @param string $key
-     *
+     * @param  string  $key
      * @return bool
      */
     public function __isset($key): bool
@@ -400,7 +395,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Unset an data by key.
      *
-     * @param string $key
+     * @param  string  $key
      */
     public function __unset($key)
     {
@@ -411,7 +406,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      * var_export.
      *
      * @param array properties
-     *
      * @return object
      */
     public static function __set_state($array): object
@@ -425,10 +419,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      *
      * @see http://php.net/manual/en/arrayaccess.offsetexists.php
      *
-     * @param mixed $offset <p>
-     *                      An offset to check for.
-     *                      </p>
-     *
+     * @param  mixed  $offset  <p>
+     *                         An offset to check for.
+     *                         </p>
      * @return bool true on success or false on failure.
      *              The return value will be casted to boolean if non-boolean was returned
      */
@@ -443,9 +436,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      *
      * @see http://php.net/manual/en/arrayaccess.offsetunset.php
      *
-     * @param mixed $offset <p>
-     *                      The offset to unset.
-     *                      </p>
+     * @param  mixed  $offset  <p>
+     *                         The offset to unset.
+     *                         </p>
      */
     public function offsetUnset($offset)
     {
@@ -460,10 +453,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      *
      * @see http://php.net/manual/en/arrayaccess.offsetget.php
      *
-     * @param mixed $offset <p>
-     *                      The offset to retrieve.
-     *                      </p>
-     *
+     * @param  mixed  $offset  <p>
+     *                         The offset to retrieve.
+     *                         </p>
      * @return mixed Can return all value types
      */
     public function offsetGet($offset)
@@ -477,12 +469,12 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      *
      * @see http://php.net/manual/en/arrayaccess.offsetset.php
      *
-     * @param mixed $offset <p>
-     *                      The offset to assign the value to.
-     *                      </p>
-     * @param mixed $value  <p>
-     *                      The value to set.
-     *                      </p>
+     * @param  mixed  $offset  <p>
+     *                         The offset to assign the value to.
+     *                         </p>
+     * @param  mixed  $value  <p>
+     *                        The value to set.
+     *                        </p>
      */
     public function offsetSet($offset, $value)
     {

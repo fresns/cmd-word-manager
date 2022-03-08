@@ -1,11 +1,16 @@
 <?php
 
-namespace Fresns\CmdWordManager;
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the GPL-3.0 License.
+ */
 
+namespace Fresns\CmdWordManager;
 
 trait CmdWordManagerTrait
 {
-    /** @var CmdWordProviderContract[] $plugins  */
+    /** @var CmdWordProviderContract[] */
     protected array $plugins = [];
 
     protected static $instance = null;
@@ -28,7 +33,7 @@ trait CmdWordManagerTrait
 
     public function resolve($unikey = null): CmdWordProviderContract
     {
-        if (!array_key_exists($unikey, $this->plugins)) {
+        if (! array_key_exists($unikey, $this->plugins)) {
             throw new \RuntimeException("CmdWord of plugin $unikey notfound.");
         }
 
