@@ -137,6 +137,7 @@ $wordBody = FsDto::make([
         //Command word output data
     }
 }
+
 // Failure
 {
     "code": 20001,
@@ -145,17 +146,20 @@ $wordBody = FsDto::make([
         //Command word output data
     }
 }
-// 20001 Plugin does not exist
-// 20002 Command word does not exist
-// 20003 Command word not responding
-// 20004 Unconfigured plugin
-// 20005 Command word execution error
-// 20006 Command word unknown error
-// 20007 Command word request parameter error
-// 20008 Command word response result is incorrect
-// 20009 Data anomalies, queries not available or data duplication
-// 20010 Execution anomalies, missing files or logging errors
 ```
+
+| Code | Message |
+| --- | --- |
+| 20001 | Plugin does not exist |
+| 20002 | Command word does not exist |
+| 20003 | Command word not responding |
+| 20004 | Unconfigured plugin |
+| 20005 | Command word execution error |
+| 20006 | Command word unknown error |
+| 20007 | Command word request parameter error |
+| 20008 | Command word response result is incorrect |
+| 20009 | Data anomalies, queries not available or data duplication |
+| 20010 | Execution anomalies, missing files or logging errors |
 
 #### Result processing($fresnsResp)
 
