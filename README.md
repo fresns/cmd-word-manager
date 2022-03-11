@@ -7,7 +7,7 @@
 
 ## About
 
-Command word manager helps plugins to communicate with each other easily.
+Command word manager(in laravel) helps plugins(individual functional modules) to communicate with each other easily.
 
 ## Install
 
@@ -17,9 +17,176 @@ To install through Composer, by run the following command:
 composer require fresns/cmd-word-manager
 ```
 
-## Dev Docs
+## Using
 
-[https://fresns.org/extensions/command-word/](https://fresns.org/extensions/command-word/)
+### Create cmd word service providers
+
+```php
+// Generate cmd word providers: /app/Providers/CmdWordServiceProvider.php
+php artisan make:cmd-word-provider
+```
+
+```php
+// Generate a cmd word provider for the specified name or directory
+php artisan make:cmd-word-provider [Name] [--path Name]
+
+php artisan make:cmd-word-provider FooBar --path Demo
+// path directory: /demo/FooBar/Providers/CmdWordServiceProvider.php
+```
+
+### Registered service providers
+
+In the `providers` key value of the `/config/app.php` file, add the generated command word service provider.
+
+- `App\Providers\CmdWordServiceProvider::class`
+- or
+- `Demo/FooBar/Providers/CmdWordServiceProvider::class`
+
+```php
+<?php
+
+return [
+    <...>
+    'providers' => [
+        <...>
+        App\Providers\CmdWordServiceProvider::class,
+    ],
+    <...>
+];
+```
+
+### Mapping command word
+
+In the properties of the command word provider file `/app/Providers/CmdWordServiceProvider.php`, in `$cmdWordsMap`, add the command word mapping config.
+
+```php
+<?php
+
+namespace App\Providers;
+
+use Plugins\BarBaz\Models\TestModel;
+use Plugins\BarBaz\Services\AWordService;
+use Plugins\BarBaz\Services\BWordService;
+    
+class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordManager\Contracts\CmdWordProviderContract
+{
+    <...>
+    protected $unikeyName = 'FooBar';
+
+    protected $cmdWordsMap = [
+        ['word' => 'test', 'provider' => [AWordService::class, 'handleTest']],
+        ['word' => 'staticTest', 'provider' => [BWordService::class, 'handleStaticTest']],
+        ['word' => 'modelTest', 'provider' => [TestModel::class, 'handleModelTest']],
+    ];
+    <...>
+}
+```
+
+### Using cmd words
+
+#### Request input
+
+| Name | Description |
+| --- | --- |
+| `\FresnsCmdWord` | Cmd Word Facades |
+| `FresnsEmail` | Requesting Object `unikey`, Leaving blank or filling in `Fresns` means that the main program handles the request |
+| `sendEmail` | Command word |
+| `$wordBody` | Parameter list of command word parameters |
+| `$FsDto` | Data transfer object: The Fresns DTO Contract does the data validation of the entry for you and defines how the entry is to be called (FsDto name is customizable). |
+| `make([...])` | `...` Is an array of request parameters |
+| `array` | The contract of the return reference object can be used without it, and using it is the contract that defines the return reference object.<br>For example, you can develop your own constraint function for the return reference type, encapsulate it and use it in this definition; you can also use the official contract provided. |
+
+```php
+//$parameter list = data transfer object::make(parameter array);
+$wordBody = FsDto::make([
+    "email" => "Mail address",
+    "title" => "Mail title",
+    "content" => "Mail content"
+]);
+
+// \facades::plugin('plugin name')->cmd word($parameter list): Define the contract for the return object
+\FresnsCmdWord::plugin('FresnsEmail')->sendEmail($wordBody);
+```
+
+**Another way to write**
+
+```php
+\FresnsCmdWord::plugin('FresnsEmail')->sendEmail(
+    FsDto::make([
+        "email" => "Mail address",
+        "title" => "Mail title",
+        "content" => "Mail content"
+    ])
+);
+```
+
+#### Result output
+
+| Name | Description |
+| --- | --- |
+| code | Status code |
+| message | Status information |
+| data | Output data |
+
+```json
+// Success
+{
+    "code": 0,
+    "message": "ok",
+    "data": {
+        //Command word output data
+    }
+}
+// Failure
+{
+    "code": 20001,
+    "message": "Plugin does not exist",
+    "data": {
+        //Command word output data
+    }
+}
+// 20001 Plugin does not exist
+// 20002 Command word does not exist
+// 20003 Command word not responding
+// 20004 Unconfigured plugin
+// 20005 Command word execution error
+// 20006 Command word unknown error
+// 20007 Command word request parameter error
+// 20008 Command word response result is incorrect
+// 20009 Data anomalies, queries not available or data duplication
+// 20010 Execution anomalies, missing files or logging errors
+```
+
+#### Result processing($fresnsResp)
+
+If you are standardized to use command word return results, you can use Fresns Response to help you quickly handle the return of the request.
+
+**Example:**
+
+```php
+$fresnsResp = \FresnsCmdWord::plugin('FresnsEmail')->sendEmail($wordBody);
+```
+
+**Handling abnormal situations**
+
+```php
+if ($fresnsResp->isErrorResponse()) {
+    return $fresnsResp->errorResponse(); //When an error is reported, the full amount of parameters is output(code+message+data)
+}
+```
+
+**Handling normal situations**
+
+```php
+$fresnsResp->getOrigin(); //Obtaining raw data
+$fresnsResp->getCode(); //Get code only
+$fresnsResp->getMessage(); //Get only the message
+$fresnsResp->getData(); //Get only the full amount of data
+$fresnsResp->getData('user.nickname'); //Get only the parameters specified in data, for example: data.user.nickname
+$fresnsResp->isSuccessResponse(); //Determine if the request is true
+$fresnsResp->isErrorResponse(); //Determine if the request is false
+$fresnsResp->getErrorResponse(); //Get the error response object
+```
 
 ## Contributing
 
