@@ -36,7 +36,7 @@ trait CmdWordManagerTrait
         return static::$instance;
     }
 
-    public static function plugin($unikey = null): CmdWordProviderContract | CmdWordResponse
+    public static function plugin($unikey = null): CmdWordProviderContract|CmdWordResponse
     {
         $instance = static::make();
 

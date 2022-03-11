@@ -27,8 +27,7 @@ interface CmdWordProviderContract
     /**
      * Register CmdWord list and get current CmdWord list.
      *
-     * @param array $cmdWords
-     *
+     * @param  array  $cmdWords
      * @return array
      */
     public function cmdWords(array $cmdWords = []): array;

@@ -1,8 +1,14 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the GPL-3.0 License.
+ */
+
 namespace Fresns\CmdWordManager\Exceptions\Constants;
 
-use Fresns\CmdWordManager\Exceptions as Exceptions;
+use Fresns\CmdWordManager\Exceptions;
 
 class ExceptionConstant
 {
@@ -16,7 +22,6 @@ class ExceptionConstant
     const ERROR_CODE_20008 = 20008;
     const ERROR_CODE_20009 = 20009;
     const ERROR_CODE_20010 = 20010;
-
 
     const ERROR_CODE_DESCRIPTION_MAP = [
         ExceptionConstant::ERROR_CODE_20001 => 'Plugin does not exist',
@@ -46,7 +51,7 @@ class ExceptionConstant
 
     public static function ensureErrcodeExists(int $code): bool
     {
-        if (!array_key_exists($code, static::ERROR_CODE_DESCRIPTION_MAP)) {
+        if (! array_key_exists($code, static::ERROR_CODE_DESCRIPTION_MAP)) {
             $link = 'https://github.com/fresns/cmd-word-manager#result-output';
 
             FresnsCmdWordException::throw("unknown code $code, please see $link");
@@ -57,7 +62,7 @@ class ExceptionConstant
 
     public static function getErrorCodeByClass(string $class): int
     {
-        if (!in_array($class, static::ERROR_CODE_CLASS_MAP)) {
+        if (! in_array($class, static::ERROR_CODE_CLASS_MAP)) {
             $link = 'https://github.com/fresns/cmd-word-manager#result-output';
 
             FresnsCmdWordException::throw("unknown code class, please see $link");

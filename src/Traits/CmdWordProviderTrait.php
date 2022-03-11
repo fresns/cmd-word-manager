@@ -9,11 +9,11 @@
 namespace Fresns\CmdWordManager\Traits;
 
 use Fresns\CmdWordManager\CmdWord;
+use Fresns\CmdWordManager\DTO\CmdWordResponseDTO;
 use Fresns\CmdWordManager\Exceptions\CmdWordNotfoundException;
 use Fresns\CmdWordManager\Exceptions\Constants\ExceptionConstant;
 use Fresns\CmdWordManager\Exceptions\FresnsCmdWordException;
 use Fresns\CmdWordManager\FresnsCmdWord;
-use Fresns\CmdWordManager\DTO\CmdWordResponseDTO;
 
 trait CmdWordProviderTrait
 {
