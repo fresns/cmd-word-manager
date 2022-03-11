@@ -73,7 +73,7 @@ class MakeCmdWordProviderCommand extends GeneratorCommand
 
     protected function replaceContent(string $stub): string
     {
-        return str_replace(['dummy_kebab_name', '{{ kebab_name }}', '{{kebab_name}}'], $this->argument('unikey'), $stub);
+        return str_replace(['dummy_studly_name', '{{ studly_name }}', '{{studly_name}}'], $this->argument('unikey'), $stub);
     }
 
     public function qualifyClassNamespace()

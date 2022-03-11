@@ -9,7 +9,11 @@
 namespace Fresns\CmdWordManager\Traits;
 
 use Fresns\CmdWordManager\CmdWord;
+use Fresns\CmdWordManager\Exceptions\CmdWordNotfoundException;
+use Fresns\CmdWordManager\Exceptions\Constants\ExceptionConstant;
+use Fresns\CmdWordManager\Exceptions\FresnsCmdWordException;
 use Fresns\CmdWordManager\FresnsCmdWord;
+use Fresns\CmdWordManager\DTO\CmdWordResponseDTO;
 
 trait CmdWordProviderTrait
 {
@@ -52,7 +56,7 @@ trait CmdWordProviderTrait
             }
         }
 
-        return $this->cmdWords;
+        return $this->all();
     }
 
     public function getAvailableCmdWords(): array
@@ -92,11 +96,11 @@ trait CmdWordProviderTrait
     public function forwardCmdWordCall(string $cmdWord, array $args)
     {
         if (! in_array($cmdWord, $this->getAvailableCmdWords())) {
-            throw new \LogicException("cmd word: $cmdWord notfound.");
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::ERROR_CODE_20002)::throw((sprintf("The cmd word $cmdWord notfound in plugin %s.", $this->unikey())));
         }
 
         if (! $this->get($cmdWord)->isCallable()) {
-            throw new \LogicException("cmd word: $cmdWord call failure.");
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::ERROR_CODE_20005)::throw((sprintf("The cmd word $cmdWord execution failed in plugin %s.", $this->unikey())));
         }
 
         return $this->get($cmdWord)->handle($args);
@@ -104,6 +108,13 @@ trait CmdWordProviderTrait
 
     public function __call(string $cmdWord, array $args)
     {
-        return $this->forwardCmdWordCall($cmdWord, $args);
+        try {
+            $response = $this->forwardCmdWordCall($cmdWord, $args);
+            // Verify that the response information meets the documentation standards
+        } catch (FresnsCmdWordException $e) {
+            $response = $e->createCmdWordResponse();
+        }
+
+        return $response;
     }
 }

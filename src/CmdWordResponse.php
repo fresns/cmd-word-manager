@@ -8,9 +8,11 @@
 
 namespace Fresns\CmdWordManager;
 
+use Fresns\CmdWordManager\Exceptions\FresnsCmdWordException;
 use Fresns\CmdWordManager\Supports\Collection;
+use Illuminate\Http\Response;
 
-abstract class CmdWordResponse
+class CmdWordResponse
 {
     protected Collection $body;
 
@@ -50,7 +52,7 @@ abstract class CmdWordResponse
     }
 
     //get json(all)
-    public function getOrigin(?string $segment = null, $default = null): array
+    public function getOrigin(?string $segment = null, $default = null)
     {
         return $this->body->get($segment, $default);
     }
@@ -58,7 +60,7 @@ abstract class CmdWordResponse
     //Determine if the request is true
     public function isSuccessResponse(): bool
     {
-        return $this->getCode() === 0;
+        return (int) $this->getCode() === 0;
     }
 
     //Determine if the request is false
@@ -68,7 +70,14 @@ abstract class CmdWordResponse
     }
 
     //Get the error response object
-    abstract public function getErrorResponse();
+    public function getErrorResponse()
+    {
+        if (\request()->wantsJson()) {
+            return response()->json($this->toArray(), Response::HTTP_OK, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        }
+
+        FresnsCmdWordException::throw($this->getMessage(), $this->getCode());
+    }
 
     //to array
     public function toArray(): array
@@ -92,5 +101,10 @@ abstract class CmdWordResponse
     public function __toString(): string
     {
         return $this->toJson();
+    }
+
+    public function __call(string $method, array $args)
+    {
+        return $this;
     }
 }

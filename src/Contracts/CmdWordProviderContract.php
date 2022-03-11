@@ -25,6 +25,29 @@ interface CmdWordProviderContract
     public function getAvailableCmdWords(): array;
 
     /**
+     * Register CmdWord list and get current CmdWord list.
+     *
+     * @param array $cmdWords
+     *
+     * @return array
+     */
+    public function cmdWords(array $cmdWords = []): array;
+
+    /**
+     * Get current CmdWord list.
+     *
+     * @return array
+     */
+    public function all(): array;
+
+    /**
+     * Register Plugin CmdWord Provider.
+     *
+     * @return void
+     */
+    public function registerCmdWordProvider();
+
+    /**
      * Call the provided command word.
      *
      * @param  string  $cmdWord
