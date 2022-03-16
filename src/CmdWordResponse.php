@@ -48,7 +48,7 @@ class CmdWordResponse
     //get json data(all)
     public function getData(?string $segment = null, $default = null)
     {
-        $key = $segment ? "data.$segment" : "data";
+        $key = $segment ? "data.$segment" : 'data';
 
         return $this->body->get($key, $default);
     }
@@ -56,7 +56,7 @@ class CmdWordResponse
     //get json(all)
     public function getOrigin(?string $segment = null, $default = null)
     {
-        $key = $segment ?: "";
+        $key = $segment ?: '';
 
         if (empty($key)) {
             return $this->body->all();
