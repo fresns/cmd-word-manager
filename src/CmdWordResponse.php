@@ -36,24 +36,32 @@ class CmdWordResponse
     //get json code
     public function getCode(): ?int
     {
-        return $this->body->get('code');
+        return $this->getOrigin('code');
     }
 
     //get json message
     public function getMessage(): string
     {
-        return $this->body->get('message');
+        return $this->getOrigin('message');
     }
 
     //get json data(all)
     public function getData(?string $segment = null, $default = null)
     {
-        return $this->body->get("data.$segment", $default);
+        $key = $segment ? "data.$segment" : "data";
+
+        return $this->body->get($key, $default);
     }
 
     //get json(all)
     public function getOrigin(?string $segment = null, $default = null)
     {
+        $key = $segment ?: "";
+
+        if (empty($key)) {
+            return $this->body->all();
+        }
+
         return $this->body->get($segment, $default);
     }
 
