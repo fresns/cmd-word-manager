@@ -93,13 +93,10 @@ class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordM
 | `FresnsEmail` | Requesting Object `unikey`, Leaving blank or filling in `Fresns` means that the main program handles the request |
 | `sendEmail` | Command word |
 | `$wordBody` | Parameter list of command word parameters |
-| `$FsDto` | Data transfer object: The Fresns DTO Contract does the data validation of the entry for you and defines how the entry is to be called (FsDto name is customizable). |
-| `make([...])` | `...` Is an array of request parameters |
-| `array` | The contract of the return reference object can be used without it, and using it is the contract that defines the return reference object.<br>For example, you can develop your own constraint function for the return reference type, encapsulate it and use it in this definition; you can also use the official contract provided. |
 
 ```php
-//$parameter list = data transfer object::make(parameter array);
-$wordBody = FsDto::make([
+// $parameter list = (parameter array);
+$wordBody = ([
     "email" => "Mail address",
     "title" => "Mail title",
     "content" => "Mail content"
@@ -112,13 +109,11 @@ $wordBody = FsDto::make([
 **Another way to write**
 
 ```php
-\FresnsCmdWord::plugin('FresnsEmail')->sendEmail(
-    FsDto::make([
-        "email" => "Mail address",
-        "title" => "Mail title",
-        "content" => "Mail content"
-    ])
-);
+\FresnsCmdWord::plugin('FresnsEmail')->sendEmail([
+    "email" => "Mail address",
+    "title" => "Mail title",
+    "content" => "Mail content"
+]);
 ```
 
 #### Result output
