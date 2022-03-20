@@ -21,6 +21,10 @@ class FresnsCmdWordException extends \RuntimeException
             'code' => $this->getErrorCode(),
             'message' => $this->getErrorDescription(),
             'data' => [],
+            'trace' => [
+                'code' => $this->getCode(),
+                'message' => $this->getMessage(),
+            ],
         ];
     }
 
