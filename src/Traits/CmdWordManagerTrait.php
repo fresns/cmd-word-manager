@@ -69,11 +69,12 @@ trait CmdWordManagerTrait
     {
         if (empty($this->plugins[$cmdWordProvider->unikey()])) {
             $this->plugins[$cmdWordProvider->unikey()] = $cmdWordProvider;
+
             return;
         }
 
         $cmdWordMaps = $this->plugins[$cmdWordProvider->unikey()]->cmdWords();
-        
+
         $mergedCmdWordMaps = array_merge($cmdWordMaps, $cmdWordProvider->cmdWords());
 
         $this->plugins[$cmdWordProvider->unikey()]->cmdWords($mergedCmdWordMaps);

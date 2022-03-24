@@ -70,7 +70,6 @@ class CmdWord
 
         [$className, $methodName] = $handleProvider;
 
-
         if (interface_exists(\Illuminate\Foundation\Application::class)) {
             $handleProvider = [app($className), $methodName];
         } else {
