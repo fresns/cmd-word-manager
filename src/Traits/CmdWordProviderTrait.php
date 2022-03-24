@@ -52,7 +52,11 @@ trait CmdWordProviderTrait
     {
         if ($cmdWords) {
             foreach ($cmdWords as $cmdWord) {
-                $this->add(CmdWord::make($cmdWord));
+                if (! ($cmdWord instanceof CmdWord)) {
+                    $cmdWord = CmdWord::make($cmdWord);
+                }
+
+                $this->add($cmdWord);
             }
         }
 

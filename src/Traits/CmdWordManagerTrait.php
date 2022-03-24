@@ -67,7 +67,16 @@ trait CmdWordManagerTrait
 
     public function addCmdWordProvider(CmdWordProviderContract $cmdWordProvider)
     {
-        $this->plugins[$cmdWordProvider->unikey()] = $cmdWordProvider;
+        if (empty($this->plugins[$cmdWordProvider->unikey()])) {
+            $this->plugins[$cmdWordProvider->unikey()] = $cmdWordProvider;
+            return;
+        }
+
+        $cmdWordMaps = $this->plugins[$cmdWordProvider->unikey()]->cmdWords();
+        
+        $mergedCmdWordMaps = array_merge($cmdWordMaps, $cmdWordProvider->cmdWords());
+
+        $this->plugins[$cmdWordProvider->unikey()]->cmdWords($mergedCmdWordMaps);
     }
 
     public function removeCmdWordProvider(string $unikey)
