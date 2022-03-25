@@ -136,7 +136,7 @@ $wordBody = ([
 
 // Failure
 {
-    "code": 20001,
+    "code": 21001,
     "message": "Plugin does not exist",
     "data": {
         //Command word output data
@@ -146,16 +146,16 @@ $wordBody = ([
 
 | Code | Message |
 | --- | --- |
-| 20001 | Plugin does not exist |
-| 20002 | Command word does not exist |
-| 20003 | Command word not responding |
-| 20004 | Unconfigured plugin |
-| 20005 | Command word execution error |
-| 20006 | Command word unknown error |
-| 20007 | Command word request parameter error |
-| 20008 | Command word response result is incorrect |
-| 20009 | Data anomalies, queries not available or data duplication |
-| 20010 | Execution anomalies, missing files or logging errors |
+| 21001 | Unconfigured plugin |
+| 21002 | Plugin does not exist |
+| 21003 | Command word does not exist |
+| 21004 | Command word unknown error |
+| 21005 | Command word not responding |
+| 21006 | Command word request parameter error |
+| 21007 | Command word execution request error |
+| 21008 | Command word response result is incorrect |
+| 21009 | Data anomalies, queries not available or data duplication |
+| 21010 | Execution anomalies, missing files or logging errors |
 
 #### Result processing($fresnsResp)
 

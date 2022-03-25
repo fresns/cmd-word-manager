@@ -59,7 +59,7 @@ trait CmdWordManagerTrait
         $unikey = $this->resolveUnikey($unikey);
 
         if (! array_key_exists($unikey, $this->plugins)) {
-            ExceptionConstant::getHandleClassByCode(ExceptionConstant::ERROR_CODE_20001)::throw(("The cmd word provider $unikey notfound."));
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::PLUGIN_DOES_NOT_EXIST)::throw(("The cmd word provider $unikey notfound."));
         }
 
         return $this->plugins[$unikey];

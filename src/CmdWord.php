@@ -123,7 +123,7 @@ class CmdWord
         $response = call_user_func_array($this->handleProvider, $args);
 
         // Command word no response result
-        $response ?? ExceptionConstant::getHandleClassByCode(ExceptionConstant::ERROR_CODE_20003)::throw((sprintf("The cmd word {$this->getName()} execution failed in plugin %s.", $this->getName())));
+        $response ?? ExceptionConstant::getHandleClassByCode(ExceptionConstant::CMD_WORD_RESP_ERROR)::throw((sprintf("The cmd word {$this->getName()} execution failed in plugin %s.", $this->getName())));
 
         if (! is_array($response)) {
             return $response;
@@ -133,7 +133,7 @@ class CmdWord
             // Verify that the response information meets the specification
             $responseDTO = CmdWordResponseDTO::make($response);
         } catch (DTOException $e) {
-            ExceptionConstant::getHandleClassByCode(ExceptionConstant::ERROR_CODE_20008)::throw((sprintf("The cmd word {$this->getName()} response data error in plugin %s.", $this->getName())));
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::CMD_WORD_RESULT_ERROR)::throw((sprintf("The cmd word {$this->getName()} response data error in plugin %s.", $this->getName())));
         }
 
         return CmdWordResponse::make([

@@ -12,41 +12,41 @@ use Fresns\CmdWordManager\Exceptions;
 
 class ExceptionConstant
 {
-    const ERROR_CODE_20001 = 20001;
-    const ERROR_CODE_20002 = 20002;
-    const ERROR_CODE_20003 = 20003;
-    const ERROR_CODE_20004 = 20004;
-    const ERROR_CODE_20005 = 20005;
-    const ERROR_CODE_20006 = 20006;
-    const ERROR_CODE_20007 = 20007;
-    const ERROR_CODE_20008 = 20008;
-    const ERROR_CODE_20009 = 20009;
-    const ERROR_CODE_20010 = 20010;
+    const PLUGIN_CONFIG_ERROR       = 21001;
+    const PLUGIN_DOES_NOT_EXIST     = 21002;
+    const WORD_DOES_NOT_EXIST       = 21003;
+    const WORD_UNKNOWN_ERROR        = 21004;
+    const CMD_WORD_RESP_ERROR       = 21005;
+    const CMD_WORD_PARAM_ERROR      = 21006;
+    const CMD_WORD_REQUEST_ERROR    = 21007;
+    const CMD_WORD_RESULT_ERROR     = 21008;
+    const CMD_WORD_DATA_ERROR       = 21009;
+    const CMD_WORD_RUN_ERROR        = 21010;
 
     const ERROR_CODE_DESCRIPTION_MAP = [
-        ExceptionConstant::ERROR_CODE_20001 => 'Plugin does not exist',
-        ExceptionConstant::ERROR_CODE_20002 => 'Command word does not exist',
-        ExceptionConstant::ERROR_CODE_20003 => 'Command word not responding',
-        ExceptionConstant::ERROR_CODE_20004 => 'Unconfigured plugin',
-        ExceptionConstant::ERROR_CODE_20005 => 'Command word execution error',
-        ExceptionConstant::ERROR_CODE_20006 => 'Command word unknown error',
-        ExceptionConstant::ERROR_CODE_20007 => 'Command word request parameter error',
-        ExceptionConstant::ERROR_CODE_20008 => 'Command word response result is incorrect',
-        ExceptionConstant::ERROR_CODE_20009 => 'Data anomalies, queries not available or data duplication',
-        ExceptionConstant::ERROR_CODE_20010 => 'Execution anomalies, missing files or logging errors',
+        ExceptionConstant::PLUGIN_CONFIG_ERROR      => 'Unconfigured plugin',
+        ExceptionConstant::PLUGIN_DOES_NOT_EXIST    => 'Plugin does not exist',
+        ExceptionConstant::WORD_DOES_NOT_EXIST      => 'Command word does not exist',
+        ExceptionConstant::WORD_UNKNOWN_ERROR       => 'Command word unknown error',
+        ExceptionConstant::CMD_WORD_RESP_ERROR      => 'Command word not responding',
+        ExceptionConstant::CMD_WORD_PARAM_ERROR     => 'Command word request parameter error',
+        ExceptionConstant::CMD_WORD_REQUEST_ERROR   => 'Command word execution request error',
+        ExceptionConstant::CMD_WORD_RESULT_ERROR    => 'Command word response result is incorrect',
+        ExceptionConstant::CMD_WORD_DATA_ERROR      => 'Data anomalies, queries not available or data duplication',
+        ExceptionConstant::CMD_WORD_RUN_ERROR       => 'Execution anomalies, missing files or logging errors',
     ];
 
     const ERROR_CODE_CLASS_MAP = [
-        ExceptionConstant::ERROR_CODE_20001 => Exceptions\UnikeyNotfoundException::class,
-        ExceptionConstant::ERROR_CODE_20002 => Exceptions\CmdWordNotfoundException::class,
-        ExceptionConstant::ERROR_CODE_20003 => Exceptions\CmdWordNoResponseException::class,
-        ExceptionConstant::ERROR_CODE_20004 => Exceptions\NoPluginsConfiguredException::class,
-        ExceptionConstant::ERROR_CODE_20005 => Exceptions\CmdWordNonExecutableException::class,
-        ExceptionConstant::ERROR_CODE_20006 => Exceptions\CmdWordUnknownErrorException::class,
-        ExceptionConstant::ERROR_CODE_20007 => Exceptions\CmdWordRequestParameterErrorException::class,
-        ExceptionConstant::ERROR_CODE_20008 => Exceptions\CmdWordResponseDataException::class,
-        ExceptionConstant::ERROR_CODE_20009 => Exceptions\CmdWordDataException::class,
-        ExceptionConstant::ERROR_CODE_20010 => Exceptions\CmdWordExecutionException::class,
+        ExceptionConstant::PLUGIN_CONFIG_ERROR => Exceptions\NoPluginsConfiguredException::class,
+        ExceptionConstant::PLUGIN_DOES_NOT_EXIST => Exceptions\UnikeyNotfoundException::class,
+        ExceptionConstant::WORD_DOES_NOT_EXIST => Exceptions\CmdWordNotfoundException::class,
+        ExceptionConstant::WORD_UNKNOWN_ERROR => Exceptions\CmdWordUnknownErrorException::class,
+        ExceptionConstant::CMD_WORD_RESP_ERROR => Exceptions\CmdWordNoResponseException::class,
+        ExceptionConstant::CMD_WORD_PARAM_ERROR => Exceptions\CmdWordRequestParameterErrorException::class,
+        ExceptionConstant::CMD_WORD_REQUEST_ERROR => Exceptions\CmdWordNonExecutableException::class,
+        ExceptionConstant::CMD_WORD_RESULT_ERROR => Exceptions\CmdWordResponseDataException::class,
+        ExceptionConstant::CMD_WORD_DATA_ERROR => Exceptions\CmdWordDataException::class,
+        ExceptionConstant::CMD_WORD_RUN_ERROR => Exceptions\CmdWordExecutionException::class,
     ];
 
     public static function ensureErrcodeExists(int $code): bool
