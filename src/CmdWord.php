@@ -122,10 +122,10 @@ class CmdWord
 
         try {
             $response = call_user_func_array($this->handleProvider, $args);
-    
+
             // Command word no response result
             $response ?? ExceptionConstant::getHandleClassByCode(ExceptionConstant::CMD_WORD_RESP_ERROR)::throw((sprintf("The cmd word {$this->getName()} execution failed.")));
-    
+
             if (! is_array($response)) {
                 return $response;
             }
