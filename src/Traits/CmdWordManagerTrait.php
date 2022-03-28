@@ -13,7 +13,6 @@ use Fresns\CmdWordManager\CmdWordResponse;
 use Fresns\CmdWordManager\Contracts\CmdWordProviderContract;
 use Fresns\CmdWordManager\Exceptions\Constants\ExceptionConstant;
 use Fresns\CmdWordManager\Exceptions\FresnsCmdWordException;
-use Fresns\CmdWordManager\Exceptions\UnikeyNotfoundException;
 
 /**
  * @mixin
@@ -59,7 +58,7 @@ trait CmdWordManagerTrait
         $unikey = $this->resolveUnikey($unikey);
 
         if (! array_key_exists($unikey, $this->plugins)) {
-            ExceptionConstant::getHandleClassByCode(ExceptionConstant::PLUGIN_DOES_NOT_EXIST)::throw(("The cmd word provider $unikey notfound."));
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::PLUGIN_DOES_NOT_EXIST)::throw(("The cmd word provider $unikey not found."));
         }
 
         return $this->plugins[$unikey];
