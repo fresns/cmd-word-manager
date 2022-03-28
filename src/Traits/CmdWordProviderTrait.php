@@ -9,8 +9,6 @@
 namespace Fresns\CmdWordManager\Traits;
 
 use Fresns\CmdWordManager\CmdWord;
-use Fresns\CmdWordManager\DTO\CmdWordResponseDTO;
-use Fresns\CmdWordManager\Exceptions\CmdWordNotfoundException;
 use Fresns\CmdWordManager\Exceptions\Constants\ExceptionConstant;
 use Fresns\CmdWordManager\Exceptions\FresnsCmdWordException;
 use Fresns\CmdWordManager\FresnsCmdWord;
@@ -100,7 +98,7 @@ trait CmdWordProviderTrait
     public function forwardCmdWordCall(string $cmdWord, array $args)
     {
         if (! in_array($cmdWord, $this->getAvailableCmdWords())) {
-            ExceptionConstant::getHandleClassByCode(ExceptionConstant::WORD_DOES_NOT_EXIST)::throw((sprintf("The cmd word $cmdWord notfound in plugin %s.", $this->unikey())));
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::WORD_DOES_NOT_EXIST)::throw((sprintf("The cmd word $cmdWord not found in plugin %s.", $this->unikey())));
         }
 
         if (! $this->get($cmdWord)->isCallable()) {
