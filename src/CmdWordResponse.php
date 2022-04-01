@@ -9,16 +9,16 @@
 namespace Fresns\CmdWordManager;
 
 use Fresns\CmdWordManager\Exceptions\FresnsCmdWordException;
-use Fresns\CmdWordManager\Supports\Collection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 
 class CmdWordResponse
 {
-    protected Collection $body;
+    protected $body;
 
     public function __construct(array $data)
     {
-        $this->body = new Collection($data);
+        $this->body = $data;
     }
 
     //make
@@ -50,7 +50,7 @@ class CmdWordResponse
     {
         $key = $segment ? "data.$segment" : 'data';
 
-        return $this->body->get($key, $default);
+        return Arr::get($this->body, $key, $default);
     }
 
     //get json(all)
@@ -59,10 +59,10 @@ class CmdWordResponse
         $key = $segment ?: '';
 
         if (empty($key)) {
-            return $this->body->all();
+            return $this->body;
         }
 
-        return $this->body->get($segment, $default);
+        return Arr::get($this->body, $segment, $default);
     }
 
     //Determine if the request is true
