@@ -12,16 +12,16 @@ use Fresns\CmdWordManager\Exceptions;
 
 class ExceptionConstant
 {
-    const PLUGIN_CONFIG_ERROR = 21001;
-    const PLUGIN_DOES_NOT_EXIST = 21002;
-    const WORD_DOES_NOT_EXIST = 21003;
-    const WORD_UNKNOWN_ERROR = 21004;
-    const CMD_WORD_RESP_ERROR = 21005;
-    const CMD_WORD_PARAM_ERROR = 21006;
-    const CMD_WORD_REQUEST_ERROR = 21007;
-    const CMD_WORD_RESULT_ERROR = 21008;
-    const CMD_WORD_DATA_ERROR = 21009;
-    const CMD_WORD_RUN_ERROR = 21010;
+    const PLUGIN_CONFIG_ERROR = 21000;
+    const PLUGIN_DOES_NOT_EXIST = 21001;
+    const WORD_DOES_NOT_EXIST = 21002;
+    const WORD_UNKNOWN_ERROR = 21003;
+    const CMD_WORD_RESP_ERROR = 21004;
+    const CMD_WORD_PARAM_ERROR = 21005;
+    const CMD_WORD_REQUEST_ERROR = 21006;
+    const CMD_WORD_RESULT_ERROR = 21007;
+    const CMD_WORD_DATA_ERROR = 21008;
+    const CMD_WORD_RUN_ERROR = 21009;
 
     const ERROR_CODE_DESCRIPTION_MAP = [
         ExceptionConstant::PLUGIN_CONFIG_ERROR      => 'Unconfigured plugin',
