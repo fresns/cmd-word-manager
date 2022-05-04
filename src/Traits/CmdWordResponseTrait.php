@@ -18,4 +18,9 @@ trait CmdWordResponseTrait
             'data' => $data,
         ];
     }
+
+    public function failure($code, $message = 'failure', $data = [])
+    {
+        return $this->success($data, $message, $code);
+    }
 }
