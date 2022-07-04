@@ -96,11 +96,11 @@ class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordM
 
 ```php
 // $parameter list = (parameter array);
-$wordBody = ([
+$wordBody = [
     "email" => "Mail address",
     "title" => "Mail title",
     "content" => "Mail content"
-]);
+];
 
 // \facades::plugin('plugin name')->cmd word($parameter list): Define the contract for the return object
 \FresnsCmdWord::plugin('FresnsEmail')->sendEmail($wordBody);
