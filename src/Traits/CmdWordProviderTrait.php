@@ -51,7 +51,7 @@ trait CmdWordProviderTrait
         if ($cmdWords) {
             foreach ($cmdWords as $cmdWord) {
                 if (! ($cmdWord instanceof CmdWord)) {
-                    $cmdWord = CmdWord::make($cmdWord);
+                    $cmdWord = CmdWord::make($cmdWord, $this->unikey());
                 }
 
                 $this->add($cmdWord);
@@ -114,7 +114,7 @@ trait CmdWordProviderTrait
             $response = $this->forwardCmdWordCall($cmdWord, $args);
             // Verify that the response information meets the documentation standards
         } catch (FresnsCmdWordException $e) {
-            $response = $e->createCmdWordResponse();
+            $response = $e->createCmdWordResponse($this->unikey(), $cmdWord);
         }
 
         return $response;

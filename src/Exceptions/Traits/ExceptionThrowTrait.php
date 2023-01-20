@@ -10,8 +10,6 @@ namespace Fresns\CmdWordManager\Exceptions\Traits;
 
 trait ExceptionThrowTrait
 {
-    protected ?string $unikey;
-
     public static function throw(string $message = '', ?string $unikey = null)
     {
         $instance = new static($message);

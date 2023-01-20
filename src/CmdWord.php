@@ -15,15 +15,14 @@ use Fresns\DTO\Exceptions\DTOException;
 class CmdWord
 {
     const FORWARD_CALL_TYPE_NEW = 'new';
-
     const FORWARD_CALL_TYPE_STATIC = 'static';
+
+    protected $handleProvider;
 
     private string $forwardCallType = CmdWord::FORWARD_CALL_TYPE_NEW;
 
-    public function __construct(
-        protected string $name,
-        protected array $provider
-    ) {
+    public function __construct(protected string $name, protected array $provider, protected string $unikey)
+    {
         $this->handleProvider = $this->getHandleProvider();
     }
 
@@ -31,9 +30,19 @@ class CmdWord
      * @param  array  $cmdWord  ['word' => XxxClass::CMD_XXX_YYY, 'provider' => [ZzzClass::class, 'handleCmdXxYyy]];
      * @return static
      */
-    public static function make(array $cmdWord): static
+    public static function make(array $cmdWord, string $unikey): static
     {
-        return new static($cmdWord['word'], $cmdWord['provider']);
+        return new static($cmdWord['word'], $cmdWord['provider'], $unikey);
+    }
+
+    /**
+     * XxxService::CMD_XXX_CMD.
+     *
+     * @return string
+     */
+    public function getUnikey(): string
+    {
+        return $this->unikey;
     }
 
     /**
@@ -124,7 +133,7 @@ class CmdWord
             $response = call_user_func_array($this->handleProvider, $args);
 
             // Command word no response result
-            $response ?? ExceptionConstant::getHandleClassByCode(ExceptionConstant::CMD_WORD_RESP_ERROR)::throw((sprintf("The cmd word {$this->getName()} execution failed.")));
+            $response ?? ExceptionConstant::getHandleClassByCode(ExceptionConstant::CMD_WORD_RESP_ERROR)::throw($this->getErrorMessage("The cmd word {$this->getName()} execution failed."));
 
             if (! is_array($response)) {
                 return $response;
@@ -135,7 +144,7 @@ class CmdWord
         } catch (DTOException $e) {
             return CmdWordResponse::make([
                 'code' => ExceptionConstant::CMD_WORD_PARAM_ERROR,
-                'message' => ExceptionConstant::getErrorDescriptionByCode(ExceptionConstant::CMD_WORD_PARAM_ERROR),
+                'message' => $this->getErrorMessage(ExceptionConstant::getErrorDescriptionByCode(ExceptionConstant::CMD_WORD_PARAM_ERROR)),
                 'data' => [
                     $e->getMessage(),
                 ],
@@ -147,5 +156,12 @@ class CmdWord
             'message' => $responseDTO->getItem('message'),
             'data' => $responseDTO->getItem('data', []),
         ]);
+    }
+    
+    public function getErrorMessage($message)
+    {
+        $provider = $this->getProvider();
+
+        return sprintf("[%s][%s]: %s", $this->getUnikey(), $this->getName(), $message);
     }
 }

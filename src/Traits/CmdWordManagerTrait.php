@@ -42,7 +42,7 @@ trait CmdWordManagerTrait
         try {
             $response = $instance->resolve($unikey);
         } catch (FresnsCmdWordException $e) {
-            $response = $e->createCmdWordResponse();
+            $response = $e->createCmdWordResponse($this->resolveUnikey($unikey), null);
         }
 
         return $response;
@@ -58,7 +58,7 @@ trait CmdWordManagerTrait
         $unikey = $this->resolveUnikey($unikey);
 
         if (! array_key_exists($unikey, $this->plugins)) {
-            ExceptionConstant::getHandleClassByCode(ExceptionConstant::PLUGIN_DOES_NOT_EXIST)::throw(("The cmd word provider $unikey not found."));
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::PLUGIN_DOES_NOT_EXIST)::throw("[$unikey] The cmd word provider $unikey not found.");
         }
 
         return $this->plugins[$unikey];
@@ -90,7 +90,7 @@ trait CmdWordManagerTrait
     {
         $plugins = [];
 
-        foreach ($this->plugins as $plugin) {
+        foreach ($this->plugins as $unikey => $plugin) {
             $pluginCmdWords = $plugin->all();
             if (empty($pluginCmdWords)) {
                 $plugins[$plugin->unikey()] = $pluginCmdWords;
@@ -100,6 +100,7 @@ trait CmdWordManagerTrait
             /** @var CmdWord $cmdWord */
             foreach ($pluginCmdWords as $cmdWordName => $cmdWord) {
                 $plugins[$plugin->unikey()][$cmdWord->getName()] = [
+                    'unikey' => $cmdWord->getUnikey(),
                     'type' => $cmdWord->getForwardCallType(),
                     'cmd_word' => $cmdWord->getName(),
                     'provider' => $cmdWord->getProvider(),
