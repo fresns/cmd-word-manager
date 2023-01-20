@@ -23,7 +23,7 @@ class FresnsCmdWordException extends \RuntimeException
     {
         return [
             'code' => $this->getErrorCode(),
-            'message' => sprintf("[%s][%s]: %s", $this->unikey, $this->cmdWord, $this->getErrorDescription()),
+            'message' => sprintf('[%s][%s]: %s', $this->unikey, $this->cmdWord, $this->getErrorDescription()),
             'data' => [],
             'trace' => [
                 'code' => $this->getCode(),

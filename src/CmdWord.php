@@ -157,11 +157,11 @@ class CmdWord
             'data' => $responseDTO->getItem('data', []),
         ]);
     }
-    
+
     public function getErrorMessage($message)
     {
         $provider = $this->getProvider();
 
-        return sprintf("[%s][%s]: %s", $this->getUnikey(), $this->getName(), $message);
+        return sprintf('[%s][%s]: %s', $this->getUnikey(), $this->getName(), $message);
     }
 }
