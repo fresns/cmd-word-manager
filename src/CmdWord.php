@@ -144,7 +144,7 @@ class CmdWord
         } catch (DTOException $e) {
             return CmdWordResponse::make([
                 'code' => ExceptionConstant::CMD_WORD_PARAM_ERROR,
-                'message' => $this->getErrorMessage(ExceptionConstant::getErrorDescriptionByCode(ExceptionConstant::CMD_WORD_PARAM_ERROR)),
+                'message' => $this->getErrorMessage(ExceptionConstant::getErrorDescriptionByCode(ExceptionConstant::CMD_WORD_PARAM_ERROR), $e),
                 'data' => [
                     $e->getMessage(),
                 ],
@@ -158,10 +158,10 @@ class CmdWord
         ]);
     }
 
-    public function getErrorMessage($message)
+    public function getErrorMessage($message, $exception = null)
     {
         $provider = $this->getProvider();
 
-        return sprintf('[%s][%s]: %s', $this->getUnikey(), $this->getName(), $message);
+        return sprintf('[%s][%s]: %s, reason: %s', $this->getUnikey(), $this->getName(), $message, $exception?->getMessage());
     }
 }
