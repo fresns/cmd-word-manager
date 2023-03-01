@@ -42,7 +42,7 @@ trait CmdWordManagerTrait
         try {
             $response = $instance->resolve($unikey);
         } catch (FresnsCmdWordException $e) {
-            $response = $e->createCmdWordResponse($this->resolveUnikey($unikey), null);
+            $response = $e->createCmdWordResponse($instance->resolveUnikey($unikey), null);
         }
 
         return $response;
