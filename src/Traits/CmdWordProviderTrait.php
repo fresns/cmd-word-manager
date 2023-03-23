@@ -2,7 +2,7 @@
 
 /*
  * Fresns (https://fresns.org)
- * Copyright (C) 2021-Present Jarvis Tang
+ * Copyright (C) 2021-Present Jevan Tang
  * Released under the Apache-2.0 License.
  */
 
@@ -98,11 +98,11 @@ trait CmdWordProviderTrait
     public function forwardCmdWordCall(string $cmdWord, array $args)
     {
         if (! in_array($cmdWord, $this->getAvailableCmdWords())) {
-            ExceptionConstant::getHandleClassByCode(ExceptionConstant::WORD_DOES_NOT_EXIST)::throw((sprintf("The cmd word $cmdWord not found in plugin %s.", $this->unikey())));
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::WORD_DOES_NOT_EXIST)::throw(sprintf("The cmd word $cmdWord not found in plugin %s.", $this->unikey()));
         }
 
         if (! $this->get($cmdWord)->isCallable()) {
-            ExceptionConstant::getHandleClassByCode(ExceptionConstant::CMD_WORD_REQUEST_ERROR)::throw((sprintf("The cmd word $cmdWord execution failed in plugin %s.", $this->unikey())));
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::CMD_WORD_REQUEST_ERROR)::throw(sprintf("The cmd word $cmdWord execution failed in plugin %s.", $this->unikey()));
         }
 
         return $this->get($cmdWord)->handle($args);
