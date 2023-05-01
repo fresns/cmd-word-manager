@@ -72,7 +72,7 @@ use Plugins\BarBaz\Services\BWordService;
 class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordManager\Contracts\CmdWordProviderContract
 {
     <...>
-    protected $fsKeyName = 'FooBar';
+    protected $fskey = 'FooBar';
 
     protected $cmdWordsMap = [
         ['word' => 'test', 'provider' => [AWordService::class, 'handleTest']],
