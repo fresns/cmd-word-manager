@@ -8,6 +8,6 @@
 
 namespace Fresns\CmdWordManager\Exceptions;
 
-class UnikeyNotfoundException extends FresnsCmdWordException
+class FskeyNotFoundException extends FresnsCmdWordException
 {
 }

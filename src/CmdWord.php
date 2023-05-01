@@ -21,7 +21,7 @@ class CmdWord
 
     private string $forwardCallType = CmdWord::FORWARD_CALL_TYPE_NEW;
 
-    public function __construct(protected string $name, protected array $provider, protected string $unikey)
+    public function __construct(protected string $name, protected array $provider, protected string $fskey)
     {
         $this->handleProvider = $this->getHandleProvider();
     }
@@ -30,9 +30,9 @@ class CmdWord
      * @param  array  $cmdWord  ['word' => XxxClass::CMD_XXX_YYY, 'provider' => [ZzzClass::class, 'handleCmdXxYyy]];
      * @return static
      */
-    public static function make(array $cmdWord, string $unikey): static
+    public static function make(array $cmdWord, string $fskey): static
     {
-        return new static($cmdWord['word'], $cmdWord['provider'], $unikey);
+        return new static($cmdWord['word'], $cmdWord['provider'], $fskey);
     }
 
     /**
@@ -40,9 +40,9 @@ class CmdWord
      *
      * @return string
      */
-    public function getUnikey(): string
+    public function getFskey(): string
     {
-        return $this->unikey;
+        return $this->fskey;
     }
 
     /**
@@ -162,6 +162,6 @@ class CmdWord
     {
         $provider = $this->getProvider();
 
-        return sprintf('[%s][%s]: %s, reason: %s', $this->getUnikey(), $this->getName(), $message, $exception?->getMessage());
+        return sprintf('[%s][%s]: %s, reason: %s', $this->getFskey(), $this->getName(), $message, $exception?->getMessage());
     }
 }

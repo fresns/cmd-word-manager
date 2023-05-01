@@ -38,8 +38,8 @@ class ExceptionConstant
 
     const ERROR_CODE_CLASS_MAP = [
         ExceptionConstant::PLUGIN_CONFIG_ERROR => Exceptions\NoPluginsConfiguredException::class,
-        ExceptionConstant::PLUGIN_DOES_NOT_EXIST => Exceptions\UnikeyNotfoundException::class,
-        ExceptionConstant::WORD_DOES_NOT_EXIST => Exceptions\CmdWordNotfoundException::class,
+        ExceptionConstant::PLUGIN_DOES_NOT_EXIST => Exceptions\FskeyNotFoundException::class,
+        ExceptionConstant::WORD_DOES_NOT_EXIST => Exceptions\CmdWordNotFoundException::class,
         ExceptionConstant::WORD_UNKNOWN_ERROR => Exceptions\CmdWordUnknownErrorException::class,
         ExceptionConstant::CMD_WORD_RESP_ERROR => Exceptions\CmdWordNoResponseException::class,
         ExceptionConstant::CMD_WORD_PARAM_ERROR => Exceptions\CmdWordRequestParameterErrorException::class,

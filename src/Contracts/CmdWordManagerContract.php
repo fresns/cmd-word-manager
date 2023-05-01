@@ -12,11 +12,11 @@ interface CmdWordManagerContract
 {
     public static function make(): static;
 
-    public static function plugin($unikey = null): CmdWordProviderContract;
+    public static function plugin($fskey = null): CmdWordProviderContract;
 
     public function addCmdWordProvider(CmdWordProviderContract $cmdWordProvider);
 
-    public function removeCmdWordProvider(string $unikey);
+    public function removeCmdWordProvider(string $fskey);
 
     public function all();
 }

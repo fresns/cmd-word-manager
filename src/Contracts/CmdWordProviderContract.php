@@ -11,11 +11,11 @@ namespace Fresns\CmdWordManager\Contracts;
 interface CmdWordProviderContract
 {
     /**
-     * unikey.
+     * fskey.
      *
      * @return string
      */
-    public function unikey(): string;
+    public function fskey(): string;
 
     /**
      * Get all the command words available to the public.

@@ -15,7 +15,7 @@ use Fresns\CmdWordManager\FresnsCmdWord;
 
 trait CmdWordProviderTrait
 {
-    protected string $unikey;
+    protected string $fskey;
 
     /** @var CmdWord[] */
     protected array $cmdWords = [];
@@ -27,8 +27,8 @@ trait CmdWordProviderTrait
 
     public function registerCmdWord()
     {
-        if (property_exists($this, 'unikeyName')) {
-            $this->unikey($this->unikeyName);
+        if (property_exists($this, 'fsKeyName')) {
+            $this->fskey($this->fsKeyName);
         }
 
         if (property_exists($this, 'cmdWordsMap')) {
@@ -36,11 +36,11 @@ trait CmdWordProviderTrait
         }
     }
 
-    public function unikey(?string $unikey = null): string
+    public function fskey(?string $fskey = null): string
     {
-        return $unikey
-            ? $this->unikey = $unikey
-            : $this->unikey;
+        return $fskey
+            ? $this->fskey = $fskey
+            : $this->fskey;
     }
 
     /**
@@ -51,7 +51,7 @@ trait CmdWordProviderTrait
         if ($cmdWords) {
             foreach ($cmdWords as $cmdWord) {
                 if (! ($cmdWord instanceof CmdWord)) {
-                    $cmdWord = CmdWord::make($cmdWord, $this->unikey());
+                    $cmdWord = CmdWord::make($cmdWord, $this->fskey());
                 }
 
                 $this->add($cmdWord);
@@ -98,11 +98,11 @@ trait CmdWordProviderTrait
     public function forwardCmdWordCall(string $cmdWord, array $args)
     {
         if (! in_array($cmdWord, $this->getAvailableCmdWords())) {
-            ExceptionConstant::getHandleClassByCode(ExceptionConstant::WORD_DOES_NOT_EXIST)::throw(sprintf("The cmd word $cmdWord not found in plugin %s.", $this->unikey()));
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::WORD_DOES_NOT_EXIST)::throw(sprintf("The cmd word $cmdWord not found in plugin %s.", $this->fskey()));
         }
 
         if (! $this->get($cmdWord)->isCallable()) {
-            ExceptionConstant::getHandleClassByCode(ExceptionConstant::CMD_WORD_REQUEST_ERROR)::throw(sprintf("The cmd word $cmdWord execution failed in plugin %s.", $this->unikey()));
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::CMD_WORD_REQUEST_ERROR)::throw(sprintf("The cmd word $cmdWord execution failed in plugin %s.", $this->fskey()));
         }
 
         return $this->get($cmdWord)->handle($args);
@@ -114,7 +114,7 @@ trait CmdWordProviderTrait
             $response = $this->forwardCmdWordCall($cmdWord, $args);
             // Verify that the response information meets the documentation standards
         } catch (FresnsCmdWordException $e) {
-            $response = $e->createCmdWordResponse($this->unikey(), $cmdWord);
+            $response = $e->createCmdWordResponse($this->fskey(), $cmdWord);
         }
 
         return $response;

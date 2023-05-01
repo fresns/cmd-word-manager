@@ -10,22 +10,22 @@ namespace Fresns\CmdWordManager\Exceptions\Traits;
 
 trait ExceptionThrowTrait
 {
-    public static function throw(string $message = '', ?string $unikey = null)
+    public static function throw(string $message = '', ?string $fskey = null)
     {
         $instance = new static($message);
 
-        $instance->setUnikey($unikey);
+        $instance->setFskey($fskey);
 
         throw $instance;
     }
 
-    public function setUnikey(?string $unikey = null)
+    public function setFskey(?string $fskey = null)
     {
-        $this->unikey = $unikey;
+        $this->fskey = $fskey;
     }
 
-    public function getUnikey()
+    public function getFskey()
     {
-        return $this->unikey;
+        return $this->fskey;
     }
 }

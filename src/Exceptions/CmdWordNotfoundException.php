@@ -8,6 +8,6 @@
 
 namespace Fresns\CmdWordManager\Exceptions;
 
-class CmdWordNotfoundException extends FresnsCmdWordException
+class CmdWordNotFoundException extends FresnsCmdWordException
 {
 }

@@ -19,7 +19,7 @@ use Fresns\CmdWordManager\Exceptions\FresnsCmdWordException;
  */
 trait CmdWordManagerTrait
 {
-    protected $defaultUniKey = 'Fresns';
+    protected $defaultFskey = 'Fresns';
 
     /** @var CmdWordProviderContract[] */
     protected array $plugins = [];
@@ -35,53 +35,53 @@ trait CmdWordManagerTrait
         return static::$instance;
     }
 
-    public static function plugin($unikey = null): CmdWordProviderContract|CmdWordResponse
+    public static function plugin($fskey = null): CmdWordProviderContract|CmdWordResponse
     {
         $instance = static::make();
 
         try {
-            $response = $instance->resolve($unikey);
+            $response = $instance->resolve($fskey);
         } catch (FresnsCmdWordException $e) {
-            $response = $e->createCmdWordResponse($instance->resolveUnikey($unikey), null);
+            $response = $e->createCmdWordResponse($instance->resolveFskey($fskey), null);
         }
 
         return $response;
     }
 
-    public function resolveUnikey(string $unikey = null)
+    public function resolveFskey(string $fskey = null)
     {
-        return $unikey ?? $this->defaultUniKey;
+        return $fskey ?? $this->defaultFskey;
     }
 
-    public function resolve($unikey = null): CmdWordProviderContract
+    public function resolve($fskey = null): CmdWordProviderContract
     {
-        $unikey = $this->resolveUnikey($unikey);
+        $fskey = $this->resolveFskey($fskey);
 
-        if (! array_key_exists($unikey, $this->plugins)) {
-            ExceptionConstant::getHandleClassByCode(ExceptionConstant::PLUGIN_DOES_NOT_EXIST)::throw("[$unikey] The cmd word provider $unikey not found.");
+        if (! array_key_exists($fskey, $this->plugins)) {
+            ExceptionConstant::getHandleClassByCode(ExceptionConstant::PLUGIN_DOES_NOT_EXIST)::throw("[$fskey] The cmd word provider $fskey not found.");
         }
 
-        return $this->plugins[$unikey];
+        return $this->plugins[$fskey];
     }
 
     public function addCmdWordProvider(CmdWordProviderContract $cmdWordProvider)
     {
-        if (empty($this->plugins[$cmdWordProvider->unikey()])) {
-            $this->plugins[$cmdWordProvider->unikey()] = $cmdWordProvider;
+        if (empty($this->plugins[$cmdWordProvider->fskey()])) {
+            $this->plugins[$cmdWordProvider->fskey()] = $cmdWordProvider;
 
             return;
         }
 
-        $cmdWordMaps = $this->plugins[$cmdWordProvider->unikey()]->cmdWords();
+        $cmdWordMaps = $this->plugins[$cmdWordProvider->fskey()]->cmdWords();
 
         $mergedCmdWordMaps = array_merge($cmdWordMaps, $cmdWordProvider->cmdWords());
 
-        $this->plugins[$cmdWordProvider->unikey()]->cmdWords($mergedCmdWordMaps);
+        $this->plugins[$cmdWordProvider->fskey()]->cmdWords($mergedCmdWordMaps);
     }
 
-    public function removeCmdWordProvider(string $unikey)
+    public function removeCmdWordProvider(string $fskey)
     {
-        unset($this->plugins[$unikey]);
+        unset($this->plugins[$fskey]);
 
         return $this;
     }
@@ -90,17 +90,17 @@ trait CmdWordManagerTrait
     {
         $plugins = [];
 
-        foreach ($this->plugins as $unikey => $plugin) {
+        foreach ($this->plugins as $fskey => $plugin) {
             $pluginCmdWords = $plugin->all();
             if (empty($pluginCmdWords)) {
-                $plugins[$plugin->unikey()] = $pluginCmdWords;
+                $plugins[$plugin->fskey()] = $pluginCmdWords;
                 continue;
             }
 
             /** @var CmdWord $cmdWord */
             foreach ($pluginCmdWords as $cmdWordName => $cmdWord) {
-                $plugins[$plugin->unikey()][$cmdWord->getName()] = [
-                    'unikey' => $cmdWord->getUnikey(),
+                $plugins[$plugin->fskey()][$cmdWord->getName()] = [
+                    'fskey' => $cmdWord->getFskey(),
                     'type' => $cmdWord->getForwardCallType(),
                     'cmd_word' => $cmdWord->getName(),
                     'provider' => $cmdWord->getProvider(),

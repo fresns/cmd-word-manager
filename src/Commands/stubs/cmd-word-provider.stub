@@ -8,7 +8,7 @@ class {{ class }} extends ServiceProvider implements \Fresns\CmdWordManager\Cont
 {
     use \Fresns\CmdWordManager\Traits\CmdWordProviderTrait;
 
-    protected $unikeyName = '{{ studly_name }}';
+    protected $fsKeyName = '{{ studly_name }}';
 
     /**
      *

@@ -68,11 +68,11 @@ namespace App\Providers;
 use Plugins\BarBaz\Models\TestModel;
 use Plugins\BarBaz\Services\AWordService;
 use Plugins\BarBaz\Services\BWordService;
-    
+
 class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordManager\Contracts\CmdWordProviderContract
 {
     <...>
-    protected $unikeyName = 'FooBar';
+    protected $fsKeyName = 'FooBar';
 
     protected $cmdWordsMap = [
         ['word' => 'test', 'provider' => [AWordService::class, 'handleTest']],
@@ -90,7 +90,7 @@ class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordM
 | Name | Description |
 | --- | --- |
 | `\FresnsCmdWord` | Cmd Word Facades |
-| `FresnsEmail` | Requesting Object `unikey`, Leaving blank or filling in `Fresns` means that the main program handles the request |
+| `FresnsEmail` | Requesting Object `fskey`, Leaving blank or filling in `Fresns` means that the main program handles the request |
 | `sendEmail` | Command word |
 | `$wordBody` | Parameter list of command word parameters |
 

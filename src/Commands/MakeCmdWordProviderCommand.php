@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 
 class MakeCmdWordProviderCommand extends GeneratorCommand
 {
-    protected $signature = 'make:cmd-word-provider {unikey : cmd-word unikey}
+    protected $signature = 'make:cmd-word-provider {fskey : cmd-word fskey}
         {name=CmdWordServiceProvider : CmdWordProvider Name}
         {--path= : The location where the CmdWordProvider file should be created}';
 
@@ -73,7 +73,7 @@ class MakeCmdWordProviderCommand extends GeneratorCommand
 
     protected function replaceContent(string $stub): string
     {
-        return str_replace(['dummy_studly_name', '{{ studly_name }}', '{{studly_name}}'], $this->argument('unikey'), $stub);
+        return str_replace(['dummy_studly_name', '{{ studly_name }}', '{{studly_name}}'], $this->argument('fskey'), $stub);
     }
 
     public function qualifyClassNamespace()
@@ -86,7 +86,7 @@ class MakeCmdWordProviderCommand extends GeneratorCommand
             return app_path('Providers');
         }
 
-        $path = $path.'\\'.Str::studly($this->argument('unikey')).'\\';
+        $path = $path.'\\'.Str::studly($this->argument('fskey')).'\\';
 
         return $path;
     }
