@@ -15,7 +15,7 @@ class FresnsCmdWordException extends \RuntimeException
     use Traits\ExceptionThrowTrait;
     use Traits\FresnsCmdWordExceptionTrait;
 
-    protected $fskey;
+    protected $fsKeyName;
 
     protected $cmdWord;
 

@@ -8,34 +8,24 @@ class {{ class }} extends ServiceProvider implements \Fresns\CmdWordManager\Cont
 {
     use \Fresns\CmdWordManager\Traits\CmdWordProviderTrait;
 
-    protected $fskey = '{{ studly_name }}';
+    protected $fsKeyName = '{{ studly_name }}';
 
     /**
+     * Command words map
      *
-     * @example
-
-    use Plugins\BarBaz\Models\TestModel;
-    use Plugins\BarBaz\Services\AWordService;
-    use Plugins\BarBaz\Services\BWordService;
-
-    protected $cmdWordsMap = [
-        ['word' => AWordService::CMD_TEST, 'provider' => [AWordService::class, 'handleTest']],
-        ['word' => BWordService::CMD_STATIC_TEST, 'provider' => [BWordService::class, 'handleStaticTest']],
-        ['word' => TestModel::CMD_MODEL_TEST, 'provider' => [TestModel::class, 'handleModelTest']],
-    ];
-
      * @var array[]
      */
     protected $cmdWordsMap = [
-        //
+        // ['word' => 'cmdWord', 'provider' => [CmdWordService::class, 'cmdWord']],
+        // ['word' => AWordService::CMD_TEST, 'provider' => [AWordService::class, 'handleTest']],
+        // ['word' => BWordService::CMD_STATIC_TEST, 'provider' => [BWordService::class, 'handleStaticTest']],
+        // ['word' => TestModel::CMD_MODEL_TEST, 'provider' => [TestModel::class, 'handleModelTest']],
     ];
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->registerCmdWordProvider();
     }

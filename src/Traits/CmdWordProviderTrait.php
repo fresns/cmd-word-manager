@@ -27,8 +27,8 @@ trait CmdWordProviderTrait
 
     public function registerCmdWord()
     {
-        if (property_exists($this, 'fskey')) {
-            $this->fskey($this->fskey);
+        if (property_exists($this, 'fsKeyName')) {
+            $this->fskey($this->fsKeyName);
         }
 
         if (property_exists($this, 'cmdWordsMap')) {
@@ -38,9 +38,7 @@ trait CmdWordProviderTrait
 
     public function fskey(?string $fskey = null): string
     {
-        return $fskey
-            ? $this->fskey = $fskey
-            : $this->fskey;
+        return $fskey ? $this->fskey = $fskey : $this->fskey;
     }
 
     /**
