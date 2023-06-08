@@ -15,7 +15,7 @@ use Fresns\CmdWordManager\FresnsCmdWord;
 
 trait CmdWordProviderTrait
 {
-    protected string $fskey;
+    protected string $fskey = '';
 
     /** @var CmdWord[] */
     protected array $cmdWords = [];
