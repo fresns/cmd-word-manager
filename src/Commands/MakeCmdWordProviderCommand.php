@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 
 class MakeCmdWordProviderCommand extends GeneratorCommand
 {
-    protected $signature = 'make:cmd-word-provider {fskey : cmd-word fskey}
+    protected $signature = 'make:cmdword-provider {fskey : cmd-word fskey}
         {name=CmdWordServiceProvider : CmdWordProvider Name}
         {--path= : The location where the CmdWordProvider file should be created}';
 
