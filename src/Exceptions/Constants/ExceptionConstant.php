@@ -23,6 +23,7 @@ class ExceptionConstant
     const CMD_WORD_DATA_ERROR = 21008;
     const CMD_WORD_RUN_ERROR = 21009;
     const CMD_WORD_DISABLED_ERROR = 21010;
+    const CMD_WORD_CONFIG_ERROR = 21011;
 
     const ERROR_CODE_DESCRIPTION_MAP = [
         ExceptionConstant::PLUGIN_CONFIG_ERROR      => 'Unconfigured plugin',
@@ -36,6 +37,7 @@ class ExceptionConstant
         ExceptionConstant::CMD_WORD_DATA_ERROR      => 'Data anomalies, queries not available or data duplication',
         ExceptionConstant::CMD_WORD_RUN_ERROR       => 'Execution anomalies, missing files or logging errors',
         ExceptionConstant::CMD_WORD_DISABLED_ERROR  => 'Command word function is disabled',
+        ExceptionConstant::CMD_WORD_CONFIG_ERROR    => 'Incorrect command word configuration',
     ];
 
     const ERROR_CODE_CLASS_MAP = [
@@ -50,6 +52,7 @@ class ExceptionConstant
         ExceptionConstant::CMD_WORD_DATA_ERROR => Exceptions\CmdWordDataException::class,
         ExceptionConstant::CMD_WORD_RUN_ERROR => Exceptions\CmdWordExecutionException::class,
         ExceptionConstant::CMD_WORD_DISABLED_ERROR => Exceptions\CmdWordDisabledException::class,
+        ExceptionConstant::CMD_WORD_CONFIG_ERROR => Exceptions\CmdWordConfigException::class,
     ];
 
     public static function ensureErrcodeExists(int $code): bool
