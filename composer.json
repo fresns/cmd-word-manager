@@ -4,11 +4,11 @@
     "description": "Command word manager(in laravel) helps plugins(individual functional modules) to communicate with each other easily.",
     "keywords": ["fresns", "cmd-word", "rpc", "laravel-rpc", "laravel-command"],
     "license": "Apache-2.0",
-    "homepage": "https://fresns.org",
+    "homepage": "https://pm.fresns.org/command-word/",
     "support": {
         "issues": "https://github.com/fresns/cmd-word-manager/issues",
         "source": "https://github.com/fresns/cmd-word-manager",
-        "docs": "https://fresns.org/extensions/command-word/"
+        "docs": "https://pm.fresns.org/command-word/"
     },
     "authors": [
         {
