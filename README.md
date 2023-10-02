@@ -10,6 +10,8 @@
 
 Command word manager(in laravel) helps plugins(individual functional modules) to communicate with each other easily.
 
+- Guide: [https://pm.fresns.org/command-word/](https://pm.fresns.org/command-word/)
+
 ## Install
 
 To install through Composer, by run the following command:
