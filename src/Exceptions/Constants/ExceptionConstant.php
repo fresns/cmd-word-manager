@@ -26,18 +26,18 @@ class ExceptionConstant
     const CMD_WORD_CONFIG_ERROR = 21011;
 
     const ERROR_CODE_DESCRIPTION_MAP = [
-        ExceptionConstant::PLUGIN_CONFIG_ERROR      => 'Unconfigured plugin',
-        ExceptionConstant::PLUGIN_DOES_NOT_EXIST    => 'Plugin does not exist',
-        ExceptionConstant::WORD_DOES_NOT_EXIST      => 'Command word does not exist',
-        ExceptionConstant::WORD_UNKNOWN_ERROR       => 'Command word unknown error',
-        ExceptionConstant::CMD_WORD_RESP_ERROR      => 'Command word not responding',
-        ExceptionConstant::CMD_WORD_PARAM_ERROR     => 'Command word request parameter error',
-        ExceptionConstant::CMD_WORD_REQUEST_ERROR   => 'Command word execution request error',
-        ExceptionConstant::CMD_WORD_RESULT_ERROR    => 'Command word response result is incorrect',
-        ExceptionConstant::CMD_WORD_DATA_ERROR      => 'Data anomalies, queries not available or data duplication',
-        ExceptionConstant::CMD_WORD_RUN_ERROR       => 'Execution anomalies, missing files or logging errors',
-        ExceptionConstant::CMD_WORD_DISABLED_ERROR  => 'Command word function is disabled',
-        ExceptionConstant::CMD_WORD_CONFIG_ERROR    => 'Incorrect command word configuration',
+        ExceptionConstant::PLUGIN_CONFIG_ERROR => 'Unconfigured plugin',
+        ExceptionConstant::PLUGIN_DOES_NOT_EXIST => 'Plugin does not exist',
+        ExceptionConstant::WORD_DOES_NOT_EXIST => 'Command word does not exist',
+        ExceptionConstant::WORD_UNKNOWN_ERROR => 'Command word unknown error',
+        ExceptionConstant::CMD_WORD_RESP_ERROR => 'Command word not responding',
+        ExceptionConstant::CMD_WORD_PARAM_ERROR => 'Command word request parameter error',
+        ExceptionConstant::CMD_WORD_REQUEST_ERROR => 'Command word execution request error',
+        ExceptionConstant::CMD_WORD_RESULT_ERROR => 'Command word response result is incorrect',
+        ExceptionConstant::CMD_WORD_DATA_ERROR => 'Data anomalies, queries not available or data duplication',
+        ExceptionConstant::CMD_WORD_RUN_ERROR => 'Execution anomalies, missing files or logging errors',
+        ExceptionConstant::CMD_WORD_DISABLED_ERROR => 'Command word function is disabled',
+        ExceptionConstant::CMD_WORD_CONFIG_ERROR => 'Incorrect command word configuration',
     ];
 
     const ERROR_CODE_CLASS_MAP = [
