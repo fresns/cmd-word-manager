@@ -10,11 +10,19 @@ namespace Fresns\CmdWordManager\Exceptions\Traits;
 
 trait ExceptionThrowTrait
 {
-    public static function throw(string $message = '', ?string $fskey = null)
+    public static function throw(string $message = '', string|int|null $fskey = null)
     {
-        $instance = new static($message);
+        $code = 0;
+        if (is_int($fskey)) {
+            $code = $fskey;
+            $fskey = null;
+        }
 
-        $instance->setFskey($fskey);
+        $instance = new static($message, $code);
+
+        if (is_string($fskey)) {
+            $instance->setFskey($fskey);
+        }
 
         throw $instance;
     }

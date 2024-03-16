@@ -9,7 +9,6 @@
 namespace Fresns\CmdWordManager;
 
 use Fresns\CmdWordManager\Exceptions\FresnsCmdWordException;
-use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 
 class CmdWordResponse
@@ -68,7 +67,7 @@ class CmdWordResponse
     //Determine if the request is true
     public function isSuccessResponse(): bool
     {
-        return (int) $this->getCode() === 0;
+        return $this->getCode() === 0;
     }
 
     //Determine if the request is false
@@ -77,11 +76,11 @@ class CmdWordResponse
         return ! $this->isSuccessResponse();
     }
 
-    //Get the error response object
+    //Get the error response
     public function getErrorResponse()
     {
-        if (\request()->wantsJson()) {
-            return response()->json($this->toArray(), Response::HTTP_OK, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        if (request()->wantsJson()) {
+            return response()->json($this->toArray());
         }
 
         FresnsCmdWordException::throw($this->getMessage(), $this->getCode());
