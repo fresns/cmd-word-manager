@@ -10,7 +10,7 @@ namespace Fresns\CmdWordManager\Traits;
 
 trait CmdWordResponseTrait
 {
-    public function success($data = null, $message = 'success', $code = 0)
+    public function success(mixed $data = null, ?string $message = 'success', ?int $code = 0)
     {
         return [
             'code' => $code,
@@ -19,7 +19,7 @@ trait CmdWordResponseTrait
         ];
     }
 
-    public function failure($code, $message = 'failure', $data = null)
+    public function failure(int $code, ?string $message = 'failure', mixed $data = null)
     {
         return $this->success($data, $message, $code);
     }
