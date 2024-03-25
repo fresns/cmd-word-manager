@@ -8,7 +8,7 @@
 
 namespace Fresns\CmdWordManager;
 
-use Fresns\CmdWordManager\Exceptions\FresnsCmdWordException;
+use Fresns\CmdWordManager\Exceptions\ResponseException;
 use Illuminate\Support\Arr;
 
 class CmdWordResponse
@@ -49,7 +49,7 @@ class CmdWordResponse
     {
         $key = $segment ? "data.$segment" : 'data';
 
-        return Arr::get($this->body, $key, $default);
+        return Arr::get($this->toArray(), $key, $default);
     }
 
     //get json(all)
@@ -58,16 +58,16 @@ class CmdWordResponse
         $key = $segment ?: '';
 
         if (empty($key)) {
-            return $this->body;
+            return $this->toArray();
         }
 
-        return Arr::get($this->body, $segment, $default);
+        return Arr::get($this->toArray(), $segment, $default);
     }
 
     //Determine if the request is true
     public function isSuccessResponse(): bool
     {
-        return $this->getCode() === 0;
+        return $this->getCode() == 0;
     }
 
     //Determine if the request is false
@@ -80,34 +80,28 @@ class CmdWordResponse
     public function getErrorResponse()
     {
         if (request()->wantsJson()) {
-            return response()->json($this->toArray());
+            throw new ResponseException($this->getMessage(), $this->getCode());
         }
 
-        FresnsCmdWordException::throw($this->getMessage(), $this->getCode());
+        return $this->toArray();
     }
 
     //to array
     public function toArray(): array
     {
-        return $this->getOrigin();
-    }
-
-    //to string
-    public function toJson(): string
-    {
-        return json_encode($this->toArray(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        return $this->body;
     }
 
     //to object
     public function toObject(): object
     {
-        return (object) $this->getOrigin();
+        return (object) $this->body;
     }
 
     //to string
-    public function __toString(): string
+    public function toString(): string
     {
-        return $this->toJson();
+        return json_encode($this->toArray(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
     public function __call(string $method, array $args)

@@ -41,8 +41,8 @@ class ExceptionConstant
     ];
 
     const ERROR_CODE_CLASS_MAP = [
-        ExceptionConstant::PLUGIN_CONFIG_ERROR => Exceptions\NoPluginsConfiguredException::class,
-        ExceptionConstant::PLUGIN_DOES_NOT_EXIST => Exceptions\FskeyNotFoundException::class,
+        ExceptionConstant::PLUGIN_CONFIG_ERROR => Exceptions\PluginNoConfiguredException::class,
+        ExceptionConstant::PLUGIN_DOES_NOT_EXIST => Exceptions\PluginNotFoundException::class,
         ExceptionConstant::WORD_DOES_NOT_EXIST => Exceptions\CmdWordNotFoundException::class,
         ExceptionConstant::WORD_UNKNOWN_ERROR => Exceptions\CmdWordUnknownErrorException::class,
         ExceptionConstant::CMD_WORD_RESP_ERROR => Exceptions\CmdWordNoResponseException::class,
@@ -58,9 +58,9 @@ class ExceptionConstant
     public static function ensureErrcodeExists(int $code): bool
     {
         if (! array_key_exists($code, static::ERROR_CODE_DESCRIPTION_MAP)) {
-            $link = 'https://github.com/fresns/cmd-word-manager#result-output';
+            $link = 'https://pm.fresns.org/command-word/usage.html#error-code';
 
-            FresnsCmdWordException::throw("unknown code $code, please see $link");
+            Exceptions\FresnsCmdWordException::throw("unknown code {$code}, please see {$link}", $code);
         }
 
         return true;
@@ -69,9 +69,9 @@ class ExceptionConstant
     public static function getErrorCodeByClass(string $class): int
     {
         if (! in_array($class, static::ERROR_CODE_CLASS_MAP)) {
-            $link = 'https://github.com/fresns/cmd-word-manager#result-output';
+            $link = 'https://pm.fresns.org/command-word/usage.html#error-code';
 
-            FresnsCmdWordException::throw("unknown code class, please see $link");
+            Exceptions\FresnsCmdWordException::throw("unknown code class [{$class}], please see {$link}");
         }
 
         return array_flip(static::ERROR_CODE_CLASS_MAP)[$class];

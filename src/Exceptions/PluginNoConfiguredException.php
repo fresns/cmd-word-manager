@@ -8,6 +8,6 @@
 
 namespace Fresns\CmdWordManager\Exceptions;
 
-class FskeyNotFoundException extends FresnsCmdWordException
+class PluginNoConfiguredException extends FresnsCmdWordException
 {
 }

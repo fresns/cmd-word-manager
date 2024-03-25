@@ -8,6 +8,6 @@
 
 namespace Fresns\CmdWordManager\Exceptions;
 
-class NoPluginsConfiguredException extends FresnsCmdWordException
+class PluginNotFoundException extends FresnsCmdWordException
 {
 }

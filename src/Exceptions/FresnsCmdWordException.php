@@ -23,7 +23,7 @@ class FresnsCmdWordException extends \RuntimeException
     {
         return [
             'code' => $this->getErrorCode(),
-            'message' => sprintf('[%s][%s]: %s, reason: %s', $this->fskey, $this->cmdWord, $this->getErrorDescription(), $this->getMessage()),
+            'message' => sprintf('[%s][%s]: %s, reason: %s', $this->fsKeyName, $this->cmdWord, $this->getErrorDescription(), $this->getMessage()),
             'data' => [],
             'trace' => [
                 'code' => $this->getCode(),
@@ -34,7 +34,7 @@ class FresnsCmdWordException extends \RuntimeException
 
     public function createCmdWordResponse(?string $fskey = null, ?string $cmdWord = null)
     {
-        $this->fskey = $fskey ?? 'unknown fskey';
+        $this->fsKeyName = $fskey ?? 'unknown fskey';
         $this->cmdWord = $cmdWord ?? 'unknown cmdWord';
 
         return CmdWordResponse::create($this->getData());

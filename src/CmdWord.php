@@ -10,7 +10,7 @@ namespace Fresns\CmdWordManager;
 
 use Fresns\CmdWordManager\DTO\CmdWordResponseDTO;
 use Fresns\CmdWordManager\Exceptions\Constants\ExceptionConstant;
-use Fresns\DTO\Exceptions\DTOException;
+use Fresns\DTO\Exceptions\ResponseException;
 
 class CmdWord
 {
@@ -141,7 +141,7 @@ class CmdWord
 
             // Verify that the response information meets the specification
             $responseDTO = CmdWordResponseDTO::make($response);
-        } catch (DTOException $e) {
+        } catch (ResponseException $e) {
             return CmdWordResponse::make([
                 'code' => ExceptionConstant::CMD_WORD_PARAM_ERROR,
                 'message' => $this->getErrorMessage(ExceptionConstant::getErrorDescriptionByCode(ExceptionConstant::CMD_WORD_PARAM_ERROR), $e),
