@@ -12,6 +12,10 @@ Command word manager(in laravel) helps plugins(individual functional modules) to
 
 - Guide: [https://pm.fresns.org/command-word/](https://pm.fresns.org/command-word/)
 
+## Sponsors
+
+Fresns is an Apache-2.0-licensed open source project with its ongoing development made possible entirely by the support of these awesome backers. If you'd like to join them, please consider [sponsoring Fresns development](https://github.com/sponsors/fresns).
+
 ## Install
 
 To install through Composer, by run the following command:
