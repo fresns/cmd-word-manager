@@ -48,12 +48,12 @@ trait CmdWordManagerTrait
         return $response;
     }
 
-    public function resolveFskey(string $fskey = null)
+    public function resolveFskey(?string $fskey = null)
     {
         return $fskey ?? $this->defaultFskey;
     }
 
-    public function resolve($fskey = null): CmdWordProviderContract
+    public function resolve(?string $fskey = null): CmdWordProviderContract
     {
         $fskey = $this->resolveFskey($fskey);
 
